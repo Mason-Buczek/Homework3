@@ -1,26 +1,27 @@
 ---
 title: "Homework3_Final"
+author: Mason Buczek
+submission: 06/02/2024
+git-hub link: https://github.com/Mason-Buczek/Homework3.git
 format: pdf
-editor: visual
+
 ---
-
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+## Load the necessary data, tables, and packages
 
 ```{r}
-1 + 1
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(dplyr)
+library(GGally)
+library(MuMIn)
+library(ggeffects)
+library(knitr)
+
+# Read in the excel fike
+drought_exp <- read_xlsx(path = "/Users/masonbuczek/Envs-193DS/Homework_3/Valliere_etal_EcoApps_Data.xlsx",
+                         sheet = "First Harvest")
 ```
 
-You can add options to executable code like this
 
-```{r}
-#| echo: false
-2 * 2
-```
 
-The `echo: false` option disables the printing of code (only output is displayed).
