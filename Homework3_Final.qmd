@@ -72,6 +72,7 @@ model4 <- lm(total_g ~ water_treatment,
 par(mfrow = c(2, 2))
 
 ```
+
 # Problem 1: Multiple linear regression: model selection and construction (52 points)
 
 ## Part A: Make a table or list of all the models from class and the last one you constructed on your own. Write a caption for your table. (8 points)
