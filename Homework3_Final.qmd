@@ -118,7 +118,7 @@ print(kable(model_table, "markdown", caption = table_caption, align = "c"))
 
 ## Part B: Write a 5-6 sentence “statistical methods” section. (8 points)
 
-The central question aims to examine the influence of specific leaf area (SLA), water treatment, and species type have on specific leaf area (mm2/g), root mass (grams), and shoot mass (grams). To accomplish this goal, I constructed multiple models, including a null model and saturated model, and then proceeded to build additional models to explore different combinations of predictors. By comparing these models using criteria such as AICc and model summaries, I aimed to determine the model that best described the variation in total biomass. In selecting the final model, I focused on identifying the model with the lowest AICc value, indicating a better balance between model accuracy and model complexity. Additionally, I paid attention to the coefficients and significance levels of predictors in the final model to ensure they align with theoretical expectations and statistical significance. To visually confirm that the final model conforms to the assumptions of a linear model, To visually confirm that model1 was the best choice as it had the smallest AICc, I utilized diagnostic plots such as residual plots, Q-Q plots, and fitted vs. residuals plots to help assess if the assumptions of linearity, constant variance, and normality of residuals are met. I also examined scatter plots to assess the relationships between predictors and total biomass, ensuring they exhibit linear patterns so I can make sure I am predicting total biomass accurately.
+The central question aims to examine the influence of specific leaf area (SLA), water treatment, and species type have on specific leaf area (mm2/g), root mass (grams), and shoot mass (grams). To accomplish this goal, I constructed multiple models, including a null model and saturated model, and then proceeded to build additional models to explore different combinations of predictors. By comparing these models using criteria such as AICc and model summaries, I aimed to determine the model that best described the variation in total biomass. In selecting the final model, I focused on identifying the model with the lowest AICc value, indicating a better balance between model accuracy and model complexity. Additionally, I paid attention to the coefficients and significance levels of predictors in the final model to ensure they align with theoretical expectations and statistical significance. To visually confirm that the final model conforms to the assumptions of a linear model, To visually confirm that model1 was the best choice as it had the smallest AICc, I utilized diagnostic plots such as residual plots, Q-Q plots, and fitted vs. residuals plots to help assess if the assumptions of linearity, constant variance, and normality of residuals are met. I also examined scatter plots to assess the relationships between predictors and total biomass, ensuring they exhibit linear patterns so I can make sure I am predicting total biomass accurately. On another note, I wanted to see the effect that a singular predictor would have compared to the others that had two or three and that's why I decided to use a singular predictor in model4
 
 ## Part C: Make a visualization of the model predictions with underlying data for your “best” model. (20 points)
 
@@ -167,6 +167,16 @@ ggplot() +
   scale_fill_manual(values = c("Well watered" = "blue", "Drought stressed" = "red")) +
   theme(legend.position = "none")
 ```
+
+## Part D: Write a caption for your visualization. (6 points)
+
+Figure 2: Total Biomass (Underlying Data) using 5 Different Model Predictor Combinations
+
+Description:
+This figure illustrates the model predictions for total biomass based on specific leaf area (SLA) and water treatment categories (Well watered vs. Drought stressed). The underlying data points represent observed total biomass values. Model predictions are depicted by solid lines, with shaded ribbons indicating the 95% confidence intervals around the predictions. The plot is faceted by species, allowing for comparisons across different plant species. Overall, the visualization provides insight into how SLA and water treatment influence total biomass in various plant species under different water conditions.
+
+Data Citation:
+Data source: Valliere, Justin; Zhang, Jacqueline; Sharifi, M.; Rundel, Philip (2019). Data from: Can we condition native plants to increase drought tolerance and improve restoration success? [Dataset]. Dryad. https://doi.org/10.5061/dryad.v0861f7
 
 
 
