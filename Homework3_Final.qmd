@@ -23,5 +23,55 @@ drought_exp <- read_xlsx(path = "/Users/masonbuczek/Envs-193DS/Homework_3/Vallie
                          sheet = "First Harvest")
 ```
 
+## Preliminary Data Cleaning
+
+```{r}
+# Cleaning the Data
+drought_exp_clean <- drought_exp %>% 
+  clean_names() %>% # nicer column names
+  mutate(species_name = case_when( # Create new column with scientific names
+    species == "ENCCAL" ~ "Encelia californica", # bush sunflower
+    species == "ESCCAL" ~ "Eschscholzia californica", # California poppy
+    species == "PENCEN" ~ "Penstemon centranthifolius", # Scarlet bugler
+    species == "GRICAM" ~ "Grindelia camporum", # great valley gumweed
+    species == "SALLEU" ~ "Salvia leucophylla", # Purple sage
+    species == "STIPUL" ~ "Nasella pulchra", # Purple needlegrass
+    species == "LOTSCO" ~ "Acmispon glaber" # deerweed
+  )) %>% 
+  relocate(species_name, .after = species) %>% # Move species_name column after species
+  mutate(water_treatment = case_when( # adding column with full treatment names
+    water == "WW" ~ "Well watered",
+    water == "DS" ~ "Drought stressed"
+  )) %>% 
+  relocate(water_treatment, .after = water) # Move water_treatment column after water
+
+# Model Construction
+
+# Model 0: Null model
+model0 <- lm(total_g ~ 1, # formula
+             data = drought_exp_clean) # data frame
+
+# Model 1: Saturated Model
+model1 <- lm(total_g ~ sla + water_treatment + species_name,
+             data = drought_exp_clean)
+par(mfrow = c(2, 2))
+
+# Model 2: Model total biomass as a function of SLA and water treatment
+model2 <- lm(total_g ~ sla + water_treatment,
+             data = drought_exp_clean)
+par(mfrow = c(2, 2))
+
+# Model 3: Model total biomass as a function of SLA and species
+model3 <- lm(total_g ~ sla + species_name,
+             data = drought_exp_clean)
+par(mfrow = c(2, 2))
+
+#Model 4: (My own model) Model total biomass as a function of water treatment only
+model4 <- lm(total_g ~ water_treatment,
+             data = drought_exp_clean)
+par(mfrow = c(2, 2))
+
+```
+
 
 
