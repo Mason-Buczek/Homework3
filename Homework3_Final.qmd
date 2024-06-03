@@ -116,5 +116,57 @@ predictor of water treatment"
 print(kable(model_table, "markdown", caption = table_caption, align = "c"))
 ```
 
+## Part B: Write a 5-6 sentence “statistical methods” section. (8 points)
+
+The central question aims to examine the influence of specific leaf area (SLA), water treatment, and species type have on specific leaf area (mm2/g), root mass (grams), and shoot mass (grams). To accomplish this goal, I constructed multiple models, including a null model and saturated model, and then proceeded to build additional models to explore different combinations of predictors. By comparing these models using criteria such as AICc and model summaries, I aimed to determine the model that best described the variation in total biomass. In selecting the final model, I focused on identifying the model with the lowest AICc value, indicating a better balance between model accuracy and model complexity. Additionally, I paid attention to the coefficients and significance levels of predictors in the final model to ensure they align with theoretical expectations and statistical significance. To visually confirm that the final model conforms to the assumptions of a linear model, To visually confirm that model1 was the best choice as it had the smallest AICc, I utilized diagnostic plots such as residual plots, Q-Q plots, and fitted vs. residuals plots to help assess if the assumptions of linearity, constant variance, and normality of residuals are met. I also examined scatter plots to assess the relationships between predictors and total biomass, ensuring they exhibit linear patterns so I can make sure I am predicting total biomass accurately.
+
+## Part C: Make a visualization of the model predictions with underlying data for your “best” model. (20 points)
+
+```{r}
+# Extract model predictions
+model_preds <- ggpredict(model1, 
+                         terms = c("sla",
+                                   "water_treatment", 
+                                   "species_name"))
+
+# Create a data frame for plotting
+model_preds_for_plotting <- model_preds %>%
+  rename(sla = x,
+         water_treatment = group,
+         species_name = facet)
+
+# Create the visualization
+ggplot() +
+  # Underlying data
+  geom_point(data = drought_exp_clean,
+             aes(x = sla, y = total_g, color = water_treatment),
+             alpha = 0.3) +
+  # Model prediction 95% CI ribbon
+  geom_ribbon(data = model_preds_for_plotting,
+              aes(x = sla, y = predicted,
+                  ymin = conf.low, ymax = conf.high,
+                  fill = water_treatment),
+              alpha = 0.2) +
+  # Model prediction lines
+  geom_line(data = model_preds_for_plotting,
+            aes(x = sla, y = predicted, color = water_treatment)) +
+  # Theme adjustments
+  theme_classic() +
+  # Remove gridlines
+  theme(panel.grid = element_blank()) +
+  # Facet by species
+  facet_wrap(~species_name, scales = "free") +
+  # Plot title
+  labs(title = "Model Predictions with Underlying Data",
+       x = "Specific Leaf Area (SLA)",
+       y = "Total Biomass",
+       color = "Water Treatment",
+       fill = "Water Treatment") +
+  # Legend adjustments
+  scale_color_manual(values = c("Well watered" = "blue", "Drought stressed" = "red")) +
+  scale_fill_manual(values = c("Well watered" = "blue", "Drought stressed" = "red")) +
+  theme(legend.position = "none")
+```
+
 
 
