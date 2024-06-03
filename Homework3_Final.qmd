@@ -72,6 +72,48 @@ model4 <- lm(total_g ~ water_treatment,
 par(mfrow = c(2, 2))
 
 ```
+# Problem 1: Multiple linear regression: model selection and construction (52 points)
+
+## Part A: Make a table or list of all the models from class and the last one you constructed on your own. Write a caption for your table. (8 points)
+
+```{r}
+# Create a data frame to store the model information
+model_table <- data.frame(
+  ModelNumber = 0:4,
+  Predictors = c(
+    "(Null Model) No predictors",
+    "SLA, Water Treatment, Species",
+    "SLA, Water Treatment",
+    "SLA, Species",
+    "Water Treatment Only")
+)
+
+# Rename the column
+colnames(model_table)[1] <- "Model Number"
+
+# Store the models in a list
+models <- list(model0, model1, model2, model3, model4)
+
+# Calculate AIC for each model
+model_table$AIC <- sapply(models, AIC)
+
+# Calculate delta AIC relative to the model with the lowest AIC
+model_table$delta_AIC <- model_table$AIC - min(model_table$AIC)
+
+# Rename the column
+colnames(model_table)[4] <- "Delta AIC"
+
+table_caption <- "Model Predictors for Predicting Total Biomass\n\n
+This table provides an overview of the structure of the 5 models constructed\n
+to predict total biomass. The null model does not include any predictors, while\n
+the saturated model incorporates specific leaf area (SLA), water treatment, and\n
+species as predictors. There are 3 additional models, two involve SLA and water\n
+treatment or SLA and species as predictors with the final model having the only\n
+predictor of water treatment"
+
+# Print the table with title, caption, and centered column names
+print(kable(model_table, "markdown", caption = table_caption, align = "c"))
+```
 
 
 
